@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #07080b; }
+  body { font-family: Inter, sans-serif; color: #fff; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: radial-gradient(1200px 900px at 50% 30%, #1a0f0b 0%, #07080b 60%); }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .center { left: 0; right: 0; text-align: center; }
+  .orange { color: #ff5a36; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); background: #ff5a36; opacity: .35; }
+  .grid { position: absolute; inset: -200px; opacity: .08;
+    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+    background-size: 90px 90px; }
+  h1 { font-weight: 800; letter-spacing: -2px; line-height: 1.05; }
+  .kicker { font-size: 34px; font-weight: 700; letter-spacing: 6px; text-transform: uppercase; color: #ff5a36; }
+  .notif { left: 70px; right: 70px; height: 190px; border-radius: 44px; background: rgba(40,40,46,.92);
+    border: 2px solid rgba(255,255,255,.08); display: flex; align-items: center; padding: 0 40px; gap: 30px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .notif .ic { width: 110px; height: 110px; border-radius: 28px; background: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+  .notif .ic img { width: 86px; }
+  .notif .t1 { font-size: 34px; font-weight: 700; }
+  .notif .t2 { font-size: 30px; color: #cfcfd6; margin-top: 8px; }
+  .notif .time { position: absolute; right: 44px; top: 34px; font-size: 26px; color: #999; }
+  .phone { width: 640px; filter: drop-shadow(0 50px 80px rgba(0,0,0,.7)); }
+  .pill { display: inline-flex; align-items: center; gap: 18px; padding: 22px 38px; border-radius: 999px;
+    background: rgba(255,90,54,.12); border: 2px solid rgba(255,90,54,.45); font-size: 38px; font-weight: 700; }
+  .card { position: absolute; left: 90px; right: 90px; height: 180px; border-radius: 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    border: 2px solid rgba(255,255,255,.1); display: flex; align-items: center; padding: 0 44px; gap: 36px; }
+  .card .ico { width: 104px; height: 104px; border-radius: 30px; background: #ff5a36; flex: none;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(255,90,54,.5); }
+  .card .ico svg { width: 56px; height: 56px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .card .ct { font-size: 44px; font-weight: 800; }
+  .card .cd { font-size: 30px; color: #b9b9c3; margin-top: 6px; }
+  .badge { display: inline-flex; align-items: center; gap: 22px; background: #000; border: 2px solid #555;
+    border-radius: 28px; padding: 22px 40px; }
+  .badge small { display: block; font-size: 24px; color: #ccc; }
+  .badge b { display: block; font-size: 42px; font-weight: 700; }
+  .badge svg { width: 64px; height: 64px; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 10px; background: #ff5a36; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid" id="grid"></div>
+  <div class="glow" id="glow1" style="width:900px;height:900px;left:-300px;top:200px"></div>
+  <div class="glow" id="glow2" style="width:800px;height:800px;right:-300px;top:1100px;opacity:.25"></div>
+
+  <!-- SCENE 1 : hook -->
+  <div class="scene" id="s1">
+    <h1 class="abs center" id="s1a" style="top:430px;font-size:110px">3h du matin.</h1>
+    <h1 class="abs center" id="s1b" style="top:580px;font-size:84px;color:#c9c9d2">Ton workflow n8n<br/>vient de <span style="color:#ff4d4d">planter</span>.</h1>
+    <div class="abs notif" id="n1" style="top:1000px">
+      <div class="ic"><img src="assets/logo.png" /></div>
+      <div><div class="t1">❌ Exécution échouée</div><div class="t2">LinkedIn Leads Scraping #16</div></div>
+      <div class="time">maintenant</div>
+    </div>
+    <div class="abs notif" id="n2" style="top:1230px">
+      <div class="ic"><img src="assets/logo.png" /></div>
+      <div><div class="t1">⚠️ Webhook sans réponse</div><div class="t2">Assistant · production</div></div>
+      <div class="time">il y a 2 min</div>
+    </div>
+    <h1 class="abs center" id="s1c" style="top:1560px;font-size:64px">Et ton laptop est <span class="orange">loin</span>.</h1>
+  </div>
+
+  <!-- SCENE 2 : logo reveal -->
+  <div class="scene" id="s2">
+    <img class="abs" id="logo" src="assets/logo.png" style="width:420px;left:330px;top:520px;border-radius:90px" />
+    <h1 class="abs center" id="s2a" style="top:1010px;font-size:150px">n8n <span class="orange">Hub</span></h1>
+    <div class="abs center" id="s2b" style="top:1220px;font-size:54px;font-weight:600;color:#d6d6de;line-height:1.3">Contrôle tes workflows n8n<br/>depuis ta <span class="orange">poche</span>.</div>
+  </div>
+
+  <!-- SCENE 3 : dashboard -->
+  <div class="scene" id="s3">
+    <div class="abs center kicker" id="s3k" style="top:150px">Dashboard live</div>
+    <h1 class="abs center" id="s3a" style="top:220px;font-size:86px">Toute ta prod n8n<br/>en un coup d'œil</h1>
+    <img class="abs phone" id="ph3" src="assets/image3.png" style="left:220px;top:520px" />
+  </div>
+
+  <!-- SCENE 4 : live activity -->
+  <div class="scene" id="s4">
+    <div class="abs center kicker" id="s4k" style="top:150px">Exécutions en temps réel</div>
+    <h1 class="abs center" id="s4a" style="top:220px;font-size:86px">Repère l'erreur.<br/><span class="orange">Agis</span> tout de suite.</h1>
+    <img class="abs phone" id="ph4" src="assets/image5.png" style="left:220px;top:520px" />
+  </div>
+
+  <!-- SCENE 5 : features -->
+  <div class="scene" id="s5">
+    <div class="abs center kicker" id="s5k" style="top:200px">Tout ce qu'il te faut</div>
+    <h1 class="abs center" id="s5a" style="top:270px;font-size:92px">Pensé pour la <span class="orange">prod</span></h1>
+    <div class="card" id="c1" style="top:520px">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+      <div><div class="ct">Multi-instances</div><div class="cd">Self-hosted ou Hub Cloud, switch en 1 tap</div></div>
+    </div>
+    <div class="card" id="c2" style="top:730px">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+      <div><div class="ct">Alertes push</div><div class="cd">Sois prévenu dès qu'un run échoue</div></div>
+    </div>
+    <div class="card" id="c3" style="top:940px">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
+      <div><div class="ct">Webhooks mobiles</div><div class="cd">Ajoute et teste tes webhooks partout</div></div>
+    </div>
+    <div class="card" id="c4" style="top:1150px">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A7 7 0 1 0 6 17.7"/><path d="M6 19h11.5"/></svg></div>
+      <div><div class="ct">Hub Cloud</div><div class="cd">Une instance n8n managée, prête en minutes</div></div>
+    </div>
+    <div class="card" id="c5" style="top:1360px">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <div><div class="ct">Clés 100% locales</div><div class="cd">Tes API keys ne quittent pas ton téléphone</div></div>
+    </div>
+  </div>
+
+  <!-- SCENE 6 : templates + mockup -->
+  <div class="scene" id="s6">
+    <div class="abs center kicker" id="s6k" style="top:150px">Templates</div>
+    <h1 class="abs center" id="s6a" style="top:220px;font-size:86px">Installe un workflow<br/>en <span class="orange">1 tap</span></h1>
+    <img class="abs" id="mock" src="assets/mokv2.png" style="width:1500px;left:-210px;top:620px" />
+    <div class="abs center" id="s6b" style="top:1680px"><span class="pill">⚡ Prêt en 3 étapes</span></div>
+  </div>
+
+  <!-- SCENE 7 : testimonial -->
+  <div class="scene" id="s7">
+    <div class="abs center" id="stars" style="top:470px;font-size:110px;color:#FBBC04;letter-spacing:14px">★★★★★</div>
+    <h1 class="abs" id="quote" style="top:680px;left:90px;right:90px;text-align:center;font-size:82px;font-weight:800;line-height:1.15">« Je relance mes flows en échec <span class="orange">depuis le train</span>. »</h1>
+    <div class="abs center" id="author" style="top:1180px;display:flex;justify-content:center;align-items:center;gap:30px">
+      <img src="assets/annah.jpg" style="width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #ff5a36" />
+      <div style="text-align:left"><div style="font-size:44px;font-weight:800">Annah L.</div><div style="font-size:32px;color:#aaa">Automation Expert</div></div>
+    </div>
+  </div>
+
+  <!-- SCENE 8 : CTA -->
+  <div class="scene" id="s8">
+    <img class="abs" id="logo8" src="assets/logo.png" style="width:260px;left:410px;top:300px;border-radius:60px" />
+    <h1 class="abs center" id="s8a" style="top:640px;font-size:120px">n8n <span class="orange">Hub</span></h1>
+    <div class="abs center" id="s8b" style="top:810px;font-size:60px;font-weight:700;line-height:1.25">Télécharge-le<br/><span class="orange">gratuitement</span></div>
+    <div class="abs center" id="s8c" style="top:1080px;display:flex;flex-direction:column;align-items:center;gap:34px">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path fill="#34A853" d="M3.6 1.8 13.5 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2z"/><path fill="#FBBC04" d="m17 8.5-3.5 3.5 3.5 3.5 4-2.3c.9-.5.9-1.9 0-2.4z"/><path fill="#4285F4" d="M13.5 12 3.6 22.2c.3.2.8.2 1.3 0L17 15.5z"/><path fill="#EA4335" d="M3.6 1.8c.3-.2.8-.2 1.3 0L17 8.5 13.5 12z"/></svg>
+        <div><small>DISPONIBLE SUR</small><b>Google Play</b></div>
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path fill="#fff" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg>
+        <div><small>TÉLÉCHARGER DANS</small><b>App Store</b></div>
+      </div>
+    </div>
+    <div class="abs center" id="s8d" style="top:1560px;font-size:56px;font-weight:800;letter-spacing:1px">n8n-hub.site</div>
+  </div>
+
+  <div class="progress" id="prog"></div>
+</div>
+
+<script>
+  const DURATION = 30;
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const p = (t, a, b) => clamp((t - a) / (b - a));
+  const outCubic = (x) => 1 - Math.pow(1 - x, 3);
+  const inOut = (x) => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const outBack = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+
+  // [id, start, end]
+  const SCENES = [
+    ['s1', 0, 4.4], ['s2', 4.4, 8.2], ['s3', 8.2, 12.2], ['s4', 12.2, 16.2],
+    ['s5', 16.2, 20.8], ['s6', 20.8, 24.6], ['s7', 24.6, 27.4], ['s8', 27.4, 30.01],
+  ];
+
+  function set(id, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+    const el = $(id);
+    el.style.opacity = o;
+    el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`;
+    el.style.filter = blur ? `blur(${blur}px)` : '';
+  }
+  // rise-in helper: element fades + slides up starting at time a
+  const rise = (id, t, a, d = .6, dist = 80) => {
+    const k = outCubic(p(t, a, a + d));
+    set(id, { o: k, y: (1 - k) * dist, blur: (1 - k) * 12 });
+  };
+
+  function render(t) {
+    for (const [id, a, b] of SCENES) {
+      const fadeIn = a === 0 ? 1 : p(t, a, a + .25);
+      const fadeOut = b >= DURATION ? 1 : 1 - p(t, b - .25, b);
+      const el = $(id);
+      el.style.opacity = t >= a && t < b ? Math.min(fadeIn, fadeOut) : 0;
+      el.style.display = t >= a - .01 && t < b ? 'block' : 'none';
+    }
+    $('grid').style.transform = `translateY(${(t * 30) % 90}px)`;
+    $('glow1').style.transform = `translate(${Math.sin(t * .6) * 200}px, ${Math.cos(t * .4) * 250}px)`;
+    $('glow2').style.transform = `translate(${Math.cos(t * .5) * 220}px, ${Math.sin(t * .7) * 200}px)`;
+    $('prog').style.width = `${(t / DURATION) * 100}%`;
+
+    // S1
+    rise('s1a', t, .1, .6);
+    rise('s1b', t, .7, .6);
+    for (const [id, a] of [['n1', 1.5], ['n2', 2.2]]) {
+      const k = outBack(p(t, a, a + .55));
+      const shake = t > a + .55 && t < a + 1 ? Math.sin((t - a) * 90) * 8 * (1 - p(t, a + .55, a + 1)) : 0;
+      set(id, { o: clamp(k * 1.5), y: (1 - k) * -260, s: .9 + .1 * k, x: shake });
+    }
+    rise('s1c', t, 3.0, .5);
+
+    // S2
+    {
+      const k = outBack(p(t, 4.5, 5.3));
+      set('logo', { o: clamp(k), s: .3 + .7 * k, r: (1 - k) * -40 });
+      $('logo').style.boxShadow = `0 0 ${80 + Math.sin(t * 4) * 30}px rgba(255,90,54,.55)`;
+      rise('s2a', t, 5.3, .6, 60);
+      rise('s2b', t, 5.9, .6, 60);
+      const z = 1 + p(t, 6.5, 8.2) * .05;
+      $('s2').style.transform = `scale(${z})`;
+    }
+
+    // S3 & S4: phones rise with slight float
+    for (const [sc, ph, a] of [['s3', 'ph3', 8.2], ['s4', 'ph4', 12.2]]) {
+      rise(sc + 'k', t, a + .1, .5, 40);
+      rise(sc + 'a', t, a + .25, .6, 60);
+      const k = outCubic(p(t, a + .3, a + 1.2));
+      const fl = Math.sin((t - a) * 2) * 12;
+      set(ph, { o: k, y: (1 - k) * 700 + fl, s: .92 + .08 * k, r: (1 - k) * 6 });
+    }
+
+    // S5 cards stagger
+    rise('s5k', t, 16.3, .5, 40);
+    rise('s5a', t, 16.45, .6, 60);
+    ['c1', 'c2', 'c3', 'c4', 'c5'].forEach((id, i) => {
+      const a = 16.9 + i * .35;
+      const k = outBack(p(t, a, a + .55));
+      set(id, { o: clamp(k), x: (1 - k) * (i % 2 ? 600 : -600) });
+    });
+
+    // S6
+    rise('s6k', t, 20.9, .5, 40);
+    rise('s6a', t, 21.05, .6, 60);
+    {
+      const k = outCubic(p(t, 21.3, 22.3));
+      set('mock', { o: k, y: (1 - k) * 400 + Math.sin(t * 2) * 10, s: .8 + .2 * k + p(t, 22.3, 24.6) * .04 });
+      const kb = outBack(p(t, 22.6, 23.2));
+      set('s6b', { o: clamp(kb), s: .6 + .4 * kb });
+    }
+
+    // S7
+    {
+      const ks = outBack(p(t, 24.7, 25.2));
+      set('stars', { o: clamp(ks), s: .5 + .5 * ks });
+      rise('quote', t, 25.0, .6, 60);
+      rise('author', t, 25.6, .5, 50);
+    }
+
+    // S8
+    {
+      const k = outBack(p(t, 27.5, 28.1));
+      set('logo8', { o: clamp(k), s: .4 + .6 * k + Math.sin(t * 5) * .015 });
+      $('logo8').style.boxShadow = `0 0 ${70 + Math.sin(t * 4) * 25}px rgba(255,90,54,.6)`;
+      rise('s8a', t, 27.8, .5, 50);
+      rise('s8b', t, 28.0, .5, 50);
+      rise('s8c', t, 28.3, .5, 70);
+      const kd = outCubic(p(t, 28.6, 29.1));
+      set('s8d', { o: kd, s: 1 + Math.sin(t * 6) * .02 * kd });
+    }
+  }
+  window.render = render;
+  window.DURATION = DURATION;
+  render(0);
+</script>
+</body>
+</html>
